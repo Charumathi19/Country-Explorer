@@ -1,9 +1,49 @@
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+<!-- Navbar -->
+<nav class="navbar navbar-light" style="background-color: #e3f2fd">
   <div class="container-fluid">
-    <img src="../../assets/logo-blue.png" class="img-fluid" alt="...">
-    <form class="d-flex">
-      <button type="button" class="btn btn-outline-info">Logout</button>
-    </form>
+    <h4 class="nav-title">EXPLORER COUNTRY</h4>
+    <button type="button" class="btn btn-outline-info">Logout</button>
   </div>
 </nav>
-<img src="../../assets/logo-blue.png" alt="...">
+
+<div class="grid-container">
+  <!-- First Grid: Dropdown -->
+  <div class="grid-item">
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-info dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Action
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Second Grid: Search -->
+  <div class="grid-item">
+    <div class="search-container">
+      <label for="search">Search:</label>
+      <input
+        class="search-input"
+        id="search"
+        type="text"
+        placeholder="Enter text..."
+      />
+    </div>
+  </div>
+  
+  <!-- Third Grid: Favorite Icon -->
+  <div class="grid-item">
+    <label>Favorite:</label>
+    <span class="favorite-icon">❤️</span>
+  </div>
+</div>

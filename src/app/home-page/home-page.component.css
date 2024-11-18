@@ -1,4 +1,55 @@
-.img-fluid {
-  width: 600;
-  height: 500;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
+
+.nav-title {
+  background: -webkit-linear-gradient(#ffffff, #00a3cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  gap: 20px;
+  padding: 20px;
+  width: 100%; 
+}
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-container label {
+  margin-right: 10px; 
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.grid-item * {
+  margin-right: 10px; 
+}
+
+.grid-item *:last-child {
+  margin-right: 0;
+} 
