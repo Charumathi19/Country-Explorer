@@ -61,27 +61,28 @@
 </div>
 
 <!-- Display flag and country -->
-
 <div class="container mt-4">
   <div class="row g-4">
     <!-- Loop over countries -->
-    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-      @for (country of countries; track country){
-      <!-- <div class="card" [routerLink]="['/country', country.code]"> -->
-        <div class="card">
-          <a [routerLink]="['/country', country.code]" class="card-link">
-          <img [src]="country.flag" alt="{{ country.name }} Flag" class="card-img">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-2" *ngFor="let country of getPaginatedCountries()" (click)="goToCountryDetails(country.code)">
+      <div class="card">
+        <a [routerLink]="['/country', country.code]" class="card-link">
+          <img [src]="country.flag" alt="{{ country.name }} Flag" class="card-img-top">
+        </a>
         <div class="card-body text-center">
           <h5 class="card-title">{{ country.name }}</h5>
         </div>
-        </a>
       </div>
-    }
     </div>
   </div>
 </div>
 
-
+<!-- Pagination Controls -->
+<div class="pagination">
+  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>
+  <button (click)="goToNextPage()" [disabled]="currentPage === getTotalPages()">Next</button>
+</div>
 
 
 

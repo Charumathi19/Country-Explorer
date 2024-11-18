@@ -1,10 +1,28 @@
-<div *ngIf="country" class="country-details">
-  <h1>{{ country.name.common }}</h1>
-  <img [src]="country.flags.png" alt="{{ country.name.common }} Flag" class="country-flag">
-  <p><strong>Capital:</strong> {{ country.capital }}</p>
-  <p><strong>Region:</strong> {{ country.region }}</p>
-  <p><strong>Population:</strong> {{ country.population | number }}</p>
-  <p><strong>Area:</strong> {{ country.area }} km²</p>
-  <p><strong>Languages:</strong> {{ country.languages | json }}</p>
-  <p><strong>Currency:</strong> {{ country.currencies | json }}</p>
+
+<div *ngIf="country" class="container">
+  <!-- Header Section -->
+  <header class="header">
+    <h1 class="country-name">{{ country.name.common }}</h1>
+    <button class="heart-btn" onclick="toggleHeart()">
+      <span class="heart">&#10084;</span>  <!-- Unicode Heart Symbol -->
+    </button>
+  </header>
+
+  <!-- Main Card Section -->
+  <div class="details-card">
+    <img [src]="country.flags.png" alt="{{ country.name.common }} Flag" class="country-flag">
+    <div class="info">
+      <p><strong>Capital:</strong> {{ country.capital }}</p>
+      <p><strong>Population:</strong> {{ country.population | number }}</p>
+      <p><strong>Region:</strong> {{ country.region }}</p>
+      <p><strong>Curreny Symbol:</strong> {{ country.currencies.SHP.symbol | json }} </p>
+      <p><strong>Languages:</strong> {{ country.languages | json }}</p>
+      <p><strong>Area:</strong>{{ country.area }} km²</p>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <!-- <footer class="footer">
+    <p>Explore the rich culture and history of India.</p>
+  </footer> -->
 </div>

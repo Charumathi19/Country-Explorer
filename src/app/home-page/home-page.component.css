@@ -103,7 +103,7 @@ body {
   display: block;
 }
 
-/* Display flag  */
+/* Display flag and Name*/
 .card-img-top {
   max-height: 400px;
   padding: 20px;
@@ -131,6 +131,45 @@ body {
 
 .card-title {
   margin-top: 10px;
+}
+
+
+/* Pagination */
+.country-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  width: 200px;
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button[disabled] {
+  background-color: #dcdcdc;
+  cursor: not-allowed;
 }
 
 
