@@ -49,6 +49,7 @@
         id="search"
         type="text"
         placeholder="Enter text..."
+        (input)="onSearch($event)"
       />
     </div>
   </div>
@@ -78,6 +79,7 @@
 </div>
 
 <!-- Pagination Controls -->
+ 
 <div class="pagination">
   <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
   <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>

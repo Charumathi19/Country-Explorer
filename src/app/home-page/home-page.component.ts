@@ -3,70 +3,132 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [HttpClientModule, RouterModule, CommonModule],
+  imports: [HttpClientModule, RouterModule, CommonModule, FormsModule],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
   countries: any[] = [];
+  filteredCountries: any[] = [];
   currentPage = 1;
   pageSize = 12;
   totalCountries: number = 0;
 
+  regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+  languages = ['English', 'French', 'Spanish', 'Arabic', 'Mandarin'];
+  populationFilters = [
+    { label: 'Small (< 1M)', min: 0, max: 1_000_000 },
+    { label: 'Medium (1M - 10M)', min: 1_000_000, max: 10_000_000 },
+    { label: 'Large (> 10M)', min: 10_000_000 }
+  ];
+
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    const apiKey = '514cb5fa37cb315a73418e89b99320c8';
-    const url = `https://api.countrylayer.com/v2/all?access_key=${apiKey}`;
-
     this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(
       (response) => {
-        // Map the country data
-        this.countries = response.map(country => ({
+        this.countries = response.map((country) => ({
           name: country.name.common,
           code: country.cca2,
-          flag: `https://flagcdn.com/256x192/${country.cca2.toLowerCase()}.png`
+          flag: `https://flagcdn.com/256x192/${country.cca2.toLowerCase()}.png`,
         }));
-        // Set total countries after the data is fetched
-        this.totalCountries = this.countries.length;
-        console.log('Mapped Countries:', this.countries);
+        this.filteredCountries = [...this.countries]; // Initialize filtered list
+        this.totalCountries = this.filteredCountries.length;
       },
-      (error) => {
-        console.error('Error fetching countries:', error);
-      }
+      (error) => console.error('Error fetching countries:', error)
     );
   }
 
-  // Get the current page's countries
-  getPaginatedCountries(): any[] {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    return this.countries.slice(startIndex, startIndex + this.pageSize);
+  // Filter by language
+  filterByLanguage(language: string): void {
+    this.filteredCountries = this.countries.filter((country) =>
+      country.languages.some((lang: string) => lang === language)
+    );
+    this.updatePagination();
   }
 
-  // Go to the previous page
+  // Filter by region
+  filterByRegion(region: string): void {
+    this.filteredCountries = this.countries.filter(
+      (country) => country.region === region
+    );
+    this.updatePagination();
+  }
+
+  // Filter by population
+  filterByPopulation(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement | null;
+  
+    if (selectElement) {
+      const selectedFilter = JSON.parse(selectElement.value || 'null');
+      if (!selectedFilter) {
+        // Reset to show all countries if no filter is selected
+        this.filteredCountries = [...this.countries];
+      } else {
+        const { min, max } = selectedFilter;
+        this.filteredCountries = this.countries.filter(country => {
+          const population = country.population;
+          if (min !== undefined && population < min) return false;
+          if (max !== undefined && population > max) return false;
+          return true;
+        });
+      }
+      // Reset to the first page after filtering
+      this.currentPage = 1;
+    }
+  }
+
+  onSearch(event: Event): void {
+    const searchText = (event.target as HTMLInputElement).value.toLowerCase();
+
+    if (!searchText) {
+      this.filteredCountries = [...this.countries]; 
+    } else {
+      this.filteredCountries = [
+        ...this.countries.filter((country) =>
+          country.name.toLowerCase().includes(searchText)
+        ),
+      ];
+    }
+
+    this.currentPage = 1; 
+    this.totalCountries = this.filteredCountries.length; 
+  }
+  
+
+  // Refresh pagination data
+  updatePagination(): void {
+    this.totalCountries = this.filteredCountries.length;
+    this.currentPage = 1; 
+  }
+
+  // Pagination helper methods
+  getPaginatedCountries(): any[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.filteredCountries.slice(startIndex, startIndex + this.pageSize);
+  }
+
   goToPreviousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
   }
 
-  // Go to the next page
   goToNextPage(): void {
     if (this.currentPage * this.pageSize < this.totalCountries) {
       this.currentPage++;
     }
   }
 
-  // Calculate total pages based on countries count
   getTotalPages(): number {
-    return Math.ceil(this.totalCountries / this.pageSize);  // Ensure it divides correctly
+    return Math.ceil(this.totalCountries / this.pageSize);
   }
 
-  // Method to navigate to country details page
   goToCountryDetails(countryCode: string): void {
     this.router.navigate(['/country', countryCode]);
   }
