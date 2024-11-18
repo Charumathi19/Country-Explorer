@@ -1,0 +1,15 @@
+.country-details {
+  text-align: center;
+  margin: 20px;
+}
+
+.country-flag {
+  width: 200px;
+  height: auto;
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}

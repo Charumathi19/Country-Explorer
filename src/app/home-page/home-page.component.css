@@ -105,6 +105,34 @@ body {
 
 /* Display flag  */
 .card-img-top {
-  max-height: 200px;
+  max-height: 400px;
+  padding: 20px;
+}
+
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 cards per row */
+  gap: 20px;
+  padding: 10px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.card-img {
+  width: 100px;
+  height: 80px;
   object-fit: cover;
 }
+
+.card-title {
+  margin-top: 10px;
+}
+
+
+
+
