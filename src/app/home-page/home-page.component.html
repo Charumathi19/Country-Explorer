@@ -9,22 +9,34 @@
 <div class="grid-container">
   <!-- First Grid: Dropdown -->
   <div class="grid-item">
-    <div class="btn-group">
-      <button
-        type="button"
-        class="btn btn-info dropdown-toggle"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Action
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#">Separated link</a></li>
-      </ul>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle">Filter</button>
+      <div class="dropdown-content">
+        <div class="nested-dropdown">
+          <a href="#">Language</a>
+          <div class="nested-dropdown-content">
+            <a href="#">Sub-option 1</a>
+            <a href="#">Sub-option 2</a>
+            <a href="#">Sub-option 3</a>
+          </div>
+        </div>
+        <div class="nested-dropdown">
+          <a href="#">Region</a>
+          <div class="nested-dropdown-content">
+            <a href="#">Sub-option 1</a>
+            <a href="#">Sub-option 2</a>
+            <a href="#">Sub-option 3</a>
+          </div>
+        </div>
+        <div class="nested-dropdown">
+          <a href="#">Population</a>
+          <div class="nested-dropdown-content">
+            <a href="#">Sub-option 1</a>
+            <a href="#">Sub-option 2</a>
+            <a href="#">Sub-option 3</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -40,10 +52,30 @@
       />
     </div>
   </div>
-  
+
   <!-- Third Grid: Favorite Icon -->
   <div class="grid-item">
     <label>Favorite:</label>
     <span class="favorite-icon">❤️</span>
   </div>
 </div>
+
+<!-- Display flag and country -->
+
+<div class="container mt-4">
+  <div class="row g-4">
+    <!-- Loop over countries -->
+    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+      @for (country of countries; track country){
+      <div class="card">
+        <img [src]="country.flag" class="card-img-top" [alt]="country.name + ' Flag'">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ country.name }}</h5>
+        </div>
+      </div>
+    }
+    </div>
+  </div>
+</div>
+
+
