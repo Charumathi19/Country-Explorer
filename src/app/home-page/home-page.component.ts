@@ -36,7 +36,18 @@ export class HomePageComponent {
           name: country.name.common,
           code: country.cca2,
           flag: `https://flagcdn.com/256x192/${country.cca2.toLowerCase()}.png`,
+          region: country.region,
+          population: country.population,
+          languages: country.languages ? Object.values(country.languages) : [],
         }));
+  
+        // Extract unique languages
+        const languageSet = new Set<string>();
+        this.countries.forEach((country) => {
+          country.languages.forEach((lang: string) => languageSet.add(lang));
+        });
+        this.languages = Array.from(languageSet);
+  
         this.filteredCountries = [...this.countries]; // Initialize filtered list
         this.totalCountries = this.filteredCountries.length;
       },
@@ -47,7 +58,7 @@ export class HomePageComponent {
   // Filter by language
   filterByLanguage(language: string): void {
     this.filteredCountries = this.countries.filter((country) =>
-      country.languages.some((lang: string) => lang === language)
+      country.languages.includes(language)
     );
     this.updatePagination();
   }
@@ -59,28 +70,25 @@ export class HomePageComponent {
     );
     this.updatePagination();
   }
+  
+  resetRegionFilter(): void {
+    this.filteredCountries = [...this.countries];
+    this.updatePagination();
+  }
 
   // Filter by population
-  filterByPopulation(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement | null;
-  
-    if (selectElement) {
-      const selectedFilter = JSON.parse(selectElement.value || 'null');
-      if (!selectedFilter) {
-        // Reset to show all countries if no filter is selected
-        this.filteredCountries = [...this.countries];
-      } else {
-        const { min, max } = selectedFilter;
-        this.filteredCountries = this.countries.filter(country => {
-          const population = country.population;
-          if (min !== undefined && population < min) return false;
-          if (max !== undefined && population > max) return false;
-          return true;
-        });
-      }
-      // Reset to the first page after filtering
-      this.currentPage = 1;
-    }
+  filterByPopulationRange(min: number, max?: number): void {
+    this.filteredCountries = this.countries.filter((country) => {
+      const population = country.population;
+      if (min !== undefined && population < min) return false;
+      if (max !== undefined && population > max) return false;
+      return true;
+    });
+  }
+
+  resetPopulationFilter(): void {
+    this.filteredCountries = [...this.countries];
+    this.updatePagination();
   }
 
   onSearch(event: Event): void {
@@ -96,15 +104,15 @@ export class HomePageComponent {
       ];
     }
 
-    this.currentPage = 1; 
-    this.totalCountries = this.filteredCountries.length; 
+    this.currentPage = 1; // Reset to the first page
+    this.totalCountries = this.filteredCountries.length; // Update total countries
   }
   
 
   // Refresh pagination data
   updatePagination(): void {
     this.totalCountries = this.filteredCountries.length;
-    this.currentPage = 1; 
+    this.currentPage = 1; // Reset to the first page
   }
 
   // Pagination helper methods

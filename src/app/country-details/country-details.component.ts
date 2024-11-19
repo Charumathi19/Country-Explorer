@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class CountryDetailsComponent {
   countryCode: string = '';
   country: any = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.countryCode = this.route.snapshot.paramMap.get('code') || '';
@@ -27,5 +27,8 @@ export class CountryDetailsComponent {
         console.error('Error fetching country details:', error);
       }
     );
+  }
+  goBack(): void {
+    this.router.navigate(['/home']);  // Navigate to the home page explicitly
   }
 }

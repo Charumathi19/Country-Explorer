@@ -1,10 +1,11 @@
 
+<div class="background-image"></div>
 <div *ngIf="country" class="container">
   <!-- Header Section -->
   <header class="header">
     <h1 class="country-name">{{ country.name.common }}</h1>
     <button class="heart-btn" onclick="toggleHeart()">
-      <span class="heart">&#10084;</span>  <!-- Unicode Heart Symbol -->
+      <span class="heart">&#10084;</span>  
     </button>
   </header>
 
@@ -20,4 +21,6 @@
       <p><strong>Area:</strong>{{ country.area }} km²</p>
     </div>
   </div>
+  <button type="button" (click)="goBack()" class="btn btn-outline-info" id="logoutbtn">Logout</button>
 </div>
+

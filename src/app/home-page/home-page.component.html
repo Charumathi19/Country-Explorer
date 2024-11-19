@@ -2,7 +2,6 @@
 <nav class="navbar navbar-light" style="background-color: #e3f2fd">
   <div class="container-fluid">
     <h4 class="nav-title">EXPLORER COUNTRY</h4>
-    <button type="button" class="btn btn-outline-info">Logout</button>
   </div>
 </nav>
 
@@ -15,25 +14,36 @@
         <div class="nested-dropdown">
           <a href="#">Language</a>
           <div class="nested-dropdown-content">
-            <a href="#">Sub-option 1</a>
-            <a href="#">Sub-option 2</a>
-            <a href="#">Sub-option 3</a>
+            <a
+              *ngFor="let language of languages"
+              (click)="filterByLanguage(language)"
+            >
+              {{ language }}
+            </a>
           </div>
         </div>
         <div class="nested-dropdown">
           <a href="#">Region</a>
           <div class="nested-dropdown-content">
-            <a href="#">Sub-option 1</a>
-            <a href="#">Sub-option 2</a>
-            <a href="#">Sub-option 3</a>
+            <a
+          *ngFor="let region of regions"
+          (click)="filterByRegion(region)"
+        >
+          {{ region }}
+        </a>
+        <a (click)="resetRegionFilter()">Reset Filter</a>
           </div>
         </div>
         <div class="nested-dropdown">
           <a href="#">Population</a>
           <div class="nested-dropdown-content">
-            <a href="#">Sub-option 1</a>
-            <a href="#">Sub-option 2</a>
-            <a href="#">Sub-option 3</a>
+            <a
+          *ngFor="let filter of populationFilters"
+          (click)="filterByPopulationRange(filter.min, filter.max)"
+        >
+          {{ filter.label }}
+        </a>
+        <a (click)="resetPopulationFilter()">Reset Filter</a>
           </div>
         </div>
       </div>
@@ -65,10 +75,18 @@
 <div class="container mt-4">
   <div class="row g-4">
     <!-- Loop over countries -->
-    <div class="col-12 col-sm-6 col-md-4 col-lg-2" *ngFor="let country of getPaginatedCountries()" (click)="goToCountryDetails(country.code)">
+    <div
+      class="col-12 col-sm-6 col-md-4 col-lg-2"
+      *ngFor="let country of getPaginatedCountries()"
+      (click)="goToCountryDetails(country.code)"
+    >
       <div class="card">
         <a [routerLink]="['/country', country.code]" class="card-link">
-          <img [src]="country.flag" alt="{{ country.name }} Flag" class="card-img-top">
+          <img
+            [src]="country.flag"
+            alt="{{ country.name }} Flag"
+            class="card-img-top"
+          />
         </a>
         <div class="card-body text-center">
           <h5 class="card-title">{{ country.name }}</h5>
@@ -79,12 +97,13 @@
 </div>
 
 <!-- Pagination Controls -->
- 
+
 <div class="pagination">
-  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
   <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>
-  <button (click)="goToNextPage()" [disabled]="currentPage === getTotalPages()">Next</button>
+  <button (click)="goToNextPage()" [disabled]="currentPage === getTotalPages()">
+    Next
+  </button>
 </div>
-
-
-

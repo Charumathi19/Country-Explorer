@@ -7,14 +7,15 @@
 
 /* Body Styling */
 body {
-  font-family: 'Arial', sans-serif;
-  justify-content: center;
   display: flex;
+  justify-content: center;
   align-items: center;
+  font-family: 'Arial', sans-serif;
   height: 100vh;
   text-align: center;
-  position: relative;
+  margin: 0; 
 }
+
 
 /* Background Image (Flag) */
 .background-image {
@@ -26,18 +27,21 @@ body {
   background: url('https://flagcdn.com/256x192/ua.png') no-repeat center center;
   background-size: cover;
   filter: blur(200px);
-  z-index: -1;  /* Behind the content */
+  z-index: -1;
 }
 
 /* Container */
 .container {
+  margin-top: 30px;
+  align-items: center;
+  justify-self: center;
   width: 90%;
   max-width: 700px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 15px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
-  position:relative; /* Keeps the content on top */
+  position:relative; 
 }
 
 /* Header */
@@ -46,7 +50,11 @@ body {
 }
 
 .country-name {
+  display: flex;
   font-size: 3em;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   font-weight: bold;
   color: #ffcc00;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
@@ -55,11 +63,13 @@ body {
 /* Details Card */
 .details-card {
   display: flex;
+  justify-content: center ;
   align-content: center;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   color: whitesmoke;
+  position: relative;
 }
 
 .flag {
@@ -97,16 +107,16 @@ body {
   padding: 10px;
   cursor: pointer;
   font-size: 20px;
-  position: absolute; /* Position the button relative to the body */
-  top: 20px; /* Adjust the distance from the top of the page */
-  right: 20px; /* Adjust the distance from the right of the page */
+  position: absolute;
+  top: 20px; 
+  right: 20px; 
   transition: transform 0.3s ease-in-out, background-color 0.3s ease;
 }
 
 /* Heart Icon (Initially white) */
 .heart {
   color: white;
-  font-size: 1rem; /* Size of the heart */
+  font-size: 1rem; 
   display: block;
   transition: color 0.3s ease;
 }
@@ -118,6 +128,12 @@ body {
 
 /* Hover and Active States */
 .heart-btn:hover {
-  transform: scale(1.1);  /* Slight zoom effect */
-  background-color: rgba(255, 64, 129, 0.1); /* Light pink background on hover */
+  transform: scale(1.1); 
+  background-color: rgba(255, 64, 129, 0.1);
+}
+
+/* Logout button */
+#logoutbtn {
+  padding: 10px;
+  align-items: center;
 }

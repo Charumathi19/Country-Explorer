@@ -112,7 +112,7 @@ body {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 cards per row */
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   padding: 10px;
 }
